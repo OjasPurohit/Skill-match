@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SkillMatch — Admin Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Epilogue:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<nav id="top-nav">
+  <div class="logo" onclick="window.location='index.html'">Skill<b>Match</b></div>
+  <div class="nav-links" id="desktop-nav">
+    <a class="nav-pill" href="index.html">Home</a>
+    <a class="nav-pill" href="student.html">Student</a>
+    <a class="nav-pill" href="company.html">Companies</a>
+    <a class="nav-pill active" href="admin.html">Admin</a>
+    <a class="nav-cta" href="student.html">Get Started →</a>
+  </div>
+  <div class="hamburger" id="ham" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div id="mobile-menu">
+  <a class="mobile-nav-item" href="index.html">🏠 Home</a>
+  <a class="mobile-nav-item" href="student.html">🎓 Student Dashboard</a>
+  <a class="mobile-nav-item" href="company.html">🏢 Company Portal</a>
+  <a class="mobile-nav-item active" href="admin.html">⚙️ Admin Panel</a>
+  <a class="mobile-nav-item cta-mobile" href="student.html">Get Started →</a>
+</div>
+
+<!-- ADMIN GRID -->
+<div class="admin-grid">
+
+  <!-- SIDEBAR -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Overview</div>
+      <button class="s-item active" id="sv-overview" onclick="showAdminView('overview')">📊 Dashboard</button>
+      <button class="s-item" id="sv-analytics" onclick="showAdminView('analytics')">📈 Analytics</button>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Manage</div>
+      <button class="s-item" id="sv-students" onclick="showAdminView('students')">🎓 Students</button>
+      <button class="s-item" id="sv-companies" onclick="showAdminView('companies')">🏢 Companies</button>
+      <button class="s-item" id="sv-listings" onclick="showAdminView('listings')">📋 Listings</button>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">System</div>
+      <button class="s-item" id="sv-settings" onclick="showAdminView('settings')">⚙️ Settings</button>
+    </div>
+  </aside>
+
+  <!-- MAIN AREA -->
+  <div class="admin-main">
+
+    <!-- DASHBOARD VIEW -->
+    <div id="av-overview" class="admin-view active">
+      <div class="admin-view-title">Platform Overview</div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="kpi-icon" style="background:var(--accent-dim)">👥</div><div><div class="kpi-n">12,483</div><div class="kpi-l">Total Students</div><div class="kpi-delta up">↑ 8.4% this month</div></div></div>
+        <div class="kpi"><div class="kpi-icon" style="background:var(--purple-dim)">🏢</div><div><div class="kpi-n">324</div><div class="kpi-l">Partner Companies</div><div class="kpi-delta up">↑ 12 new</div></div></div>
+        <div class="kpi"><div class="kpi-icon" style="background:var(--red-dim)">📋</div><div><div class="kpi-n">842</div><div class="kpi-l">Active Listings</div><div class="kpi-delta down">↓ 3 expired</div></div></div>
+        <div class="kpi"><div class="kpi-icon" style="background:var(--amber-dim)">🎯</div><div><div class="kpi-n">94.2%</div><div class="kpi-l">Match Accuracy</div><div class="kpi-delta up">↑ 0.4%</div></div></div>
+      </div>
+      <div class="card" style="padding:1.4rem;margin-bottom:1.2rem">
+        <div class="panel-head"><span class="panel-title">Recent Activity</span></div>
+        <div class="recent-row"><span class="recent-time">2m ago</span><span>👤 New student: <strong>Priya Sharma</strong> · 14 skills extracted</span><span class="chip chip-green">Student</span></div>
+        <div class="recent-row"><span class="recent-time">8m ago</span><span>🏢 New listing: <strong>Google · ML Intern</strong></span><span class="chip chip-purple">Company</span></div>
+        <div class="recent-row"><span class="recent-time">15m ago</span><span>🎯 Match run: <strong>47 students</strong> matched to Stripe posting</span><span class="chip chip-amber">System</span></div>
+        <div class="recent-row"><span class="recent-time">1h ago</span><span>⚠️ Flagged listing: <strong>Unknown Corp · removed</strong></span><span class="chip chip-red">Moderation</span></div>
+        <div class="recent-row" style="border:none"><span class="recent-time">2h ago</span><span>📊 pandas batch job: <strong>840 match scores</strong> recomputed</span><span class="chip chip-muted">Backend</span></div>
+      </div>
+      <div class="analytics-grid">
+        <div class="analytics-card">
+          <div class="ac-title">Top Demanded Skills</div>
+          <div class="skill-bar-row"><span class="skb-label">Python</span><div class="skb-track"><div class="skb-fill" style="width:92%"></div></div><span class="skb-n">92%</span></div>
+          <div class="skill-bar-row"><span class="skb-label">SQL</span><div class="skb-track"><div class="skb-fill" style="width:78%"></div></div><span class="skb-n">78%</span></div>
+          <div class="skill-bar-row"><span class="skb-label">pandas</span><div class="skb-track"><div class="skb-fill" style="width:71%"></div></div><span class="skb-n">71%</span></div>
+          <div class="skill-bar-row"><span class="skb-label">Docker</span><div class="skb-track"><div class="skb-fill" style="width:65%"></div></div><span class="skb-n">65%</span></div>
+          <div class="skill-bar-row"><span class="skb-label">ML</span><div class="skb-track"><div class="skb-fill" style="width:58%"></div></div><span class="skb-n">58%</span></div>
+        </div>
+        <div class="analytics-card">
+          <div class="ac-title">Signups — Last 7 Days</div>
+          <div class="mini-chart">
+            <div class="mc-bar" style="height:60%"></div>
+            <div class="mc-bar" style="height:45%"></div>
+            <div class="mc-bar" style="height:80%"></div>
+            <div class="mc-bar" style="height:55%"></div>
+            <div class="mc-bar" style="height:90%"></div>
+            <div class="mc-bar" style="height:70%"></div>
+            <div class="mc-bar" style="height:100%;background:var(--accent)"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--muted);margin-top:0.5rem">
+            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span style="color:var(--accent)">Sun</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STUDENTS VIEW -->
+    <div id="av-students" class="admin-view">
+      <div class="admin-view-title">Students</div>
+      <div class="toolbar">
+        <div class="search-input-wrap"><span>🔍</span><input class="search-input" placeholder="Search students..."/></div>
+        <button class="btn btn-outline" style="white-space:nowrap">Export CSV</button>
+        <span class="chip chip-green">12,483 total</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Student</th><th>University</th><th>Skills</th><th>Top Match</th><th>Applied</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="td-user"><div class="td-avatar" style="background:var(--accent-dim);color:var(--accent)">AJ</div><div><div style="font-weight:500">Alex Johnson</div><div style="font-size:0.72rem;color:var(--muted)">alex@mit.edu</div></div></div></td>
+              <td>MIT</td><td><span class="chip chip-green">12 skills</span></td>
+              <td><span style="color:var(--accent);font-weight:700">94%</span></td>
+              <td>8</td><td><span class="chip chip-green">Active</span></td>
+              <td style="display:flex;gap:0.5rem"><button class="action-btn ab-gray">View</button><button class="action-btn ab-red">Suspend</button></td>
+            </tr>
+            <tr>
+              <td><div class="td-user"><div class="td-avatar" style="background:var(--purple-dim);color:var(--purple)">PS</div><div><div style="font-weight:500">Priya Sharma</div><div style="font-size:0.72rem;color:var(--muted)">priya@iit.ac.in</div></div></div></td>
+              <td>IIT Delhi</td><td><span class="chip chip-green">14 skills</span></td>
+              <td><span style="color:var(--purple);font-weight:700">89%</span></td>
+              <td>5</td><td><span class="chip chip-green">Active</span></td>
+              <td style="display:flex;gap:0.5rem"><button class="action-btn ab-gray">View</button><button class="action-btn ab-red">Suspend</button></td>
+            </tr>
+            <tr>
+              <td><div class="td-user"><div class="td-avatar" style="background:var(--amber-dim);color:var(--amber)">MK</div><div><div style="font-weight:500">Mike Kim</div><div style="font-size:0.72rem;color:var(--muted)">mike@stanford.edu</div></div></div></td>
+              <td>Stanford</td><td><span class="chip chip-muted">7 skills</span></td>
+              <td><span style="color:var(--amber);font-weight:700">67%</span></td>
+              <td>2</td><td><span class="chip chip-amber">Incomplete</span></td>
+              <td style="display:flex;gap:0.5rem"><button class="action-btn ab-green">Nudge</button><button class="action-btn ab-red">Remove</button></td>
+            </tr>
+            <tr>
+              <td><div class="td-user"><div class="td-avatar" style="background:var(--red-dim);color:var(--red)">SR</div><div><div style="font-weight:500">Sara Rossi</div><div style="font-size:0.72rem;color:var(--muted)">sara@polimi.it</div></div></div></td>
+              <td>Politecnico</td><td><span class="chip chip-green">11 skills</span></td>
+              <td><span style="color:var(--accent);font-weight:700">91%</span></td>
+              <td>11</td><td><span class="chip chip-red">Flagged</span></td>
+              <td style="display:flex;gap:0.5rem"><button class="action-btn ab-green">Restore</button><button class="action-btn ab-red">Ban</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- COMPANIES VIEW -->
+    <div id="av-companies" class="admin-view">
+      <div class="admin-view-title">Companies</div>
+      <div class="toolbar">
+        <div class="search-input-wrap"><span>🔍</span><input class="search-input" placeholder="Search companies..."/></div>
+        <button class="btn btn-green" style="white-space:nowrap">+ Approve New</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Company</th><th>Industry</th><th>Listings</th><th>Applicants</th><th>Avg Match</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="td-user"><div class="td-avatar" style="background:var(--accent-dim);color:var(--accent)">ST</div><div><div style="font-weight:500">Stripe</div><div style="font-size:0.72rem;color:var(--muted)">payments@stripe.com</div></div></div></td>
+              <td>Fintech</td><td>4</td><td>148</td>
+              <td><span style="color:var(--accent);font-weight:700">91%</span></td>
+              <td><span class="chip chip-green">Verified</span></td>
+              <td style="display:flex;gap:0.5rem"><button class="action-btn ab-gray">View</button><button class="action-btn ab-red">Suspend</button></td>
+            </tr>
+            <tr>
+              <td><div class="td-user"><div class="td-avatar" style="background:var(--purple-dim);color:var(--purple)">NT</div><div><div style="font-weight:500">Notion</div><div style="font-size:0.72rem;color:var(--muted)">hr@notion.so</div></div></div></td>
+              <td>SaaS</td><td>2</td><td>63</td>
+              <td><span style="color:var(--purple);font-weight:700">87%</span></td>
+              <td><span class="chip chip-green">Verified</span></td>
+              <td style="display:flex;gap:0.5rem"><button class="action-btn ab-gray">View</button><button class="action-btn ab-red">Suspend</button></td>
+            </tr>
+            <tr>
+              <td><div class="td-user"><div class="td-avatar" style="background:var(--amber-dim);color:var(--amber)">UC</div><div><div style="font-weight:500">Unknown Corp</div><div style="font-size:0.72rem;color:var(--muted)">contact@unknown.xyz</div></div></div></td>
+              <td>—</td><td>1</td><td>0</td>
+              <td><span style="color:var(--muted);font-weight:700">—</span></td>
+              <td><span class="chip chip-red">Pending</span></td>
+              <td style="display:flex;gap:0.5rem"><button class="action-btn ab-green">Approve</button><button class="action-btn ab-red">Reject</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- LISTINGS VIEW -->
+    <div id="av-listings" class="admin-view">
+      <div class="admin-view-title">Internship Listings</div>
+      <div class="toolbar">
+        <div class="search-input-wrap"><span>🔍</span><input class="search-input" placeholder="Search listings..."/></div>
+        <span class="chip chip-green">842 active</span>
+        <span class="chip chip-red">3 flagged</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Role</th><th>Company</th><th>Skills</th><th>Applicants</th><th>Avg Match</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:500">Data Engineering Intern</td><td>Stripe</td>
+              <td><span class="chip chip-green">4 skills</span></td><td>47</td>
+              <td><span style="color:var(--accent);font-weight:700">91%</span></td>
+              <td><span class="chip chip-green">Active</span></td>
+              <td style="display:flex;gap:0.5rem"><button class="action-btn ab-gray">View</button><button class="action-btn ab-red">Remove</button></td>
+            </tr>
+            <tr>
+              <td style="font-weight:500">ML Research Intern</td><td>Hugging Face</td>
+              <td><span class="chip chip-purple">6 skills</span></td><td>31</td>
+              <td><span style="color:var(--purple);font-weight:700">88%</span></td>
+              <td><span class="chip chip-green">Active</span></td>
+              <td style="display:flex;gap:0.5rem"><button class="action-btn ab-gray">View</button><button class="action-btn ab-red">Remove</button></td>
+            </tr>
+            <tr>
+              <td style="font-weight:500">Get Rich Quick Intern</td><td>Unknown Corp</td>
+              <td><span class="chip chip-red">0 skills</span></td><td>0</td>
+              <td><span style="color:var(--muted);font-weight:700">—</span></td>
+              <td><span class="chip chip-red">Flagged</span></td>
+              <td style="display:flex;gap:0.5rem"><button class="action-btn ab-green">Approve</button><button class="action-btn ab-red">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ANALYTICS VIEW -->
+    <div id="av-analytics" class="admin-view">
+      <div class="admin-view-title">Analytics</div>
+      <div class="grid-4" style="margin-bottom:1.5rem">
+        <div class="stat-box"><div class="n">3.2K</div><div class="l">Resumes This Month</div></div>
+        <div class="stat-box"><div class="n" style="color:var(--purple)">18K</div><div class="l">Matches Computed</div></div>
+        <div class="stat-box"><div class="n" style="color:var(--amber)">64%</div><div class="l">Apply Rate</div></div>
+        <div class="stat-box"><div class="n" style="color:var(--red)">29%</div><div class="l">Interview Rate</div></div>
+      </div>
+      <div class="analytics-grid">
+        <div class="analytics-card">
+          <div class="ac-title">Top Skills in Demand</div>
+          <div class="skill-bar-row"><span class="skb-label">Python</span><div class="skb-track"><div class="skb-fill" style="width:92%"></div></div><span class="skb-n">92%</span></div>
+          <div class="skill-bar-row"><span class="skb-label">SQL</span><div class="skb-track"><div class="skb-fill" style="width:78%"></div></div><span class="skb-n">78%</span></div>
+          <div class="skill-bar-row"><span class="skb-label">pandas</span><div class="skb-track"><div class="skb-fill" style="width:71%"></div></div><span class="skb-n">71%</span></div>
+          <div class="skill-bar-row"><span class="skb-label">Docker</span><div class="skb-track"><div class="skb-fill" style="width:65%"></div></div><span class="skb-n">65%</span></div>
+          <div class="skill-bar-row"><span class="skb-label">React</span><div class="skb-track"><div class="skb-fill" style="width:54%"></div></div><span class="skb-n">54%</span></div>
+        </div>
+        <div class="analytics-card">
+          <div class="ac-title">Match Score Distribution (numpy)</div>
+          <div style="display:flex;align-items:flex-end;gap:4px;height:80px;margin-bottom:0.5rem">
+            <div style="flex:1;background:var(--accent-dim);height:20%;border-radius:3px 3px 0 0"></div>
+            <div style="flex:1;background:var(--accent-dim);height:35%;border-radius:3px 3px 0 0"></div>
+            <div style="flex:1;background:var(--accent-dim);height:60%;border-radius:3px 3px 0 0"></div>
+            <div style="flex:1;background:var(--accent);height:100%;border-radius:3px 3px 0 0"></div>
+            <div style="flex:1;background:var(--accent-dim);height:75%;border-radius:3px 3px 0 0"></div>
+            <div style="flex:1;background:var(--accent-dim);height:50%;border-radius:3px 3px 0 0"></div>
+            <div style="flex:1;background:var(--accent-dim);height:30%;border-radius:3px 3px 0 0"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:var(--muted)">
+            <span>0-20</span><span>20-40</span><span>40-60</span><span>60-80</span><span>80-90</span><span>90-95</span><span>95+</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS VIEW -->
+    <div id="av-settings" class="admin-view">
+      <div class="admin-view-title">System Settings</div>
+      <div class="card" style="padding:1.4rem;margin-bottom:1.2rem">
+        <div class="panel-head"><span class="panel-title">ML Configuration</span></div>
+        <div style="display:flex;flex-direction:column;gap:1rem">
+          <div class="form-group"><label>TF-IDF Max Features</label><input class="form-control" value="5000" style="max-width:200px"/></div>
+          <div class="form-group"><label>Minimum Match Score to Display (%)</label><input class="form-control" value="50" style="max-width:200px"/></div>
+          <div class="form-group"><label>Max Results per Student</label><input class="form-control" value="20" style="max-width:200px"/></div>
+          <div class="form-group"><label>spaCy Model</label>
+            <select class="form-control" style="max-width:250px">
+              <option>en_core_web_sm</option>
+              <option>en_core_web_md</option>
+              <option>en_core_web_lg</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="padding:1.4rem">
+        <div class="panel-head"><span class="panel-title">Database</span></div>
+        <div style="display:flex;flex-direction:column;gap:1rem">
+          <div class="form-group"><label>Database Engine</label>
+            <select class="form-control" style="max-width:250px">
+              <option>SQLite (dev)</option>
+              <option>PostgreSQL (prod)</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Connection String</label><input class="form-control" value="sqlite:///skillmatch.db"/></div>
+          <div style="display:flex;gap:0.8rem;flex-wrap:wrap">
+            <button class="btn btn-green">Save Settings</button>
+            <button class="btn btn-outline">Run Migrations</button>
+            <button class="btn btn-outline" style="color:var(--red);border-color:rgba(255,95,95,0.2)">Reset DB</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /admin-main -->
+</div><!-- /admin-grid -->
+
+<script src="js/main.js"></script>
+<script>
+  function showAdminView(name) {
+    document.querySelectorAll('.admin-view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.s-item').forEach(s => s.classList.remove('active'));
+    document.getElementById('av-' + name).classList.add('active');
+    document.getElementById('sv-' + name).classList.add('active');
+  }
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.skb-fill').forEach(el => {
+      const w = el.style.width; el.style.width = '0';
+      setTimeout(() => { el.style.width = w; }, 300);
+    });
+  });
+</script>
+</body>
+</html>

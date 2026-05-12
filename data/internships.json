@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Data Engineering Intern",
+    "description": "Build data pipelines",
+    "skills_required": "python pandas numpy sql spark postgresql"
+  },
+  {
+    "title": "Backend Python Intern",
+    "description": "Build REST APIs with Flask",
+    "skills_required": "python flask django rest api postgresql"
+  },
+  {
+    "title": "ML Research Intern",
+    "description": "NLP and ML models",
+    "skills_required": "python machine learning nlp scikit-learn numpy"
+  },
+  {
+    "title": "Data Science Intern",
+    "description": "Analyze data and dashboards",
+    "skills_required": "python pandas numpy matplotlib sql statistics"
+  },
+  {
+    "title": "Full Stack Intern",
+    "description": "Python + React features",
+    "skills_required": "python flask javascript react html css"
+  }
+]

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SkillMatch — Company Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Epilogue:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<nav id="top-nav">
+  <div class="logo" onclick="window.location='index.html'">Skill<b>Match</b></div>
+  <div class="nav-links" id="desktop-nav">
+    <a class="nav-pill" href="index.html">Home</a>
+    <a class="nav-pill" href="student.html">Student</a>
+    <a class="nav-pill active" href="company.html">Companies</a>
+    <a class="nav-pill" href="admin.html">Admin</a>
+    <a class="nav-cta" href="student.html">Get Started →</a>
+  </div>
+  <div class="hamburger" id="ham" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div id="mobile-menu">
+  <a class="mobile-nav-item" href="index.html">🏠 Home</a>
+  <a class="mobile-nav-item" href="student.html">🎓 Student Dashboard</a>
+  <a class="mobile-nav-item active" href="company.html">🏢 Company Portal</a>
+  <a class="mobile-nav-item" href="admin.html">⚙️ Admin Panel</a>
+  <a class="mobile-nav-item cta-mobile" href="student.html">Get Started →</a>
+</div>
+
+<div class="page-body">
+  <div class="container">
+
+    <div class="dash-header fade-in">
+      <div>
+        <div class="sub-label">Company Portal</div>
+        <div class="dash-greeting">Post <em>Internships</em> 🏢</div>
+      </div>
+      <div style="display:flex;gap:0.8rem;flex-wrap:wrap">
+        <div class="stat-box" style="padding:0.7rem 1.2rem;min-width:90px">
+          <div class="n" style="font-size:1.5rem" id="stat-total">—</div><div class="l">Total Posts</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-layout">
+
+      <!-- POST FORM -->
+      <div class="card" style="padding:1.4rem">
+        <div class="panel-head"><span class="panel-title">Post New Internship</span></div>
+        <div style="display:flex;flex-direction:column;gap:0.9rem">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Role Title</label>
+              <input id="f-title" class="form-control" placeholder="e.g. Backend Python Intern"/>
+            </div>
+            <div class="form-group">
+              <label>Duration</label>
+              <select id="f-duration" class="form-control">
+                <option>3 months</option>
+                <option>4 months</option>
+                <option>6 months</option>
+                <option>12 months</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Location</label>
+              <input id="f-location" class="form-control" placeholder="Remote / City, Country"/>
+            </div>
+            <div class="form-group">
+              <label>Stipend</label>
+              <input id="f-stipend" class="form-control" placeholder="e.g. $2,500/mo"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Required Skills <span style="color:var(--muted);font-weight:400">(comma separated)</span></label>
+            <input id="f-skills" class="form-control" placeholder="python pandas postgresql rest api docker"/>
+          </div>
+          <div class="form-group">
+            <label>Job Description</label>
+            <textarea id="f-desc" class="form-control" placeholder="Describe the role, responsibilities, and ideal candidate..."></textarea>
+          </div>
+          <button class="btn btn-green" style="width:100%;justify-content:center" onclick="postInternship()">
+            Post &amp; Find Candidates →
+          </button>
+          <div id="post-msg" style="display:none;text-align:center;font-size:0.82rem;padding:0.5rem;border-radius:8px"></div>
+        </div>
+      </div>
+
+      <!-- ACTIVE LISTINGS -->
+      <div>
+        <div class="panel-head" style="margin-bottom:1rem">
+          <span style="font-family:var(--font-display);font-weight:700;font-size:1rem">Active Listings</span>
+          <button class="btn btn-outline" style="font-size:0.78rem;padding:0.4rem 1rem" onclick="loadListings()">↻ Refresh</button>
+        </div>
+        <div class="listings-grid" id="listings-grid">
+          <div style="color:var(--muted2);font-size:0.85rem;padding:1rem">Loading internships...</div>
+        </div>
+      </div>
+
+    </div>
+    <div style="height:3rem"></div>
+  </div>
+</div>
+
+<script src="main.js"></script>
+<script>
+  const API = 'http://localhost:5000';
+
+  // ── Post new internship to Flask API
+  async function postInternship() {
+    const title = document.getElementById('f-title').value.trim();
+    const skills = document.getElementById('f-skills').value.trim();
+    const desc  = document.getElementById('f-desc').value.trim();
+    const msg   = document.getElementById('post-msg');
+
+    if (!title || !skills) {
+      msg.style.display = 'block';
+      msg.style.background = 'var(--red-dim)';
+      msg.style.color = 'var(--red)';
+      msg.textContent = '❌ Role title and skills are required.';
+      return;
+    }
+
+    msg.style.display = 'block';
+    msg.style.background = 'rgba(255,184,48,0.1)';
+    msg.style.color = 'var(--amber)';
+    msg.textContent = '⏳ Running TF-IDF matching across student database...';
+
+    try {
+      const res  = await fetch(`${API}/api/internships`, {
+        method : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body   : JSON.stringify({
+          title           : title,
+          description     : desc || 'No description provided',
+          skills_required : skills
+        })
+      });
+      const data = await res.json();
+
+      msg.style.background = 'rgba(0,240,168,0.1)';
+      msg.style.color = 'var(--accent)';
+      msg.textContent = '✅ ' + data.message;
+
+      // Clear form
+      ['f-title','f-skills','f-desc','f-location','f-stipend'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+      });
+
+      // Reload listings
+      loadListings();
+
+    } catch (err) {
+      msg.style.color = 'var(--red)';
+      msg.textContent = '❌ Cannot connect to backend. Is Flask running on localhost:5000?';
+    }
+  }
+
+  // ── Load and render all internship listings
+  async function loadListings() {
+    const grid = document.getElementById('listings-grid');
+    try {
+      const res  = await fetch(`${API}/api/internships`);
+      const data = await res.json();
+      const list = data.internships || [];
+
+      document.getElementById('stat-total').textContent = list.length;
+
+      if (list.length === 0) {
+        grid.innerHTML = `
+          <div class="add-listing-card" onclick="document.getElementById('f-title').focus()">
+            <span style="font-size:1.8rem">+</span>
+            <span style="font-size:0.85rem;font-weight:500">Post first listing</span>
+          </div>`;
+        return;
+      }
+
+      grid.innerHTML = list.map(item => {
+        const skills = (item.skills_required || '').split(' ').slice(0, 4);
+        return `
+          <div class="listing-card">
+            <div class="lc-top">
+              <div class="lc-title">${item.title}</div>
+              <span class="chip chip-green">Active</span>
+            </div>
+            <div class="lc-meta">${item.description || 'No description'}</div>
+            <div class="lc-chips">
+              ${skills.map(s => `<span class="chip chip-green">${s}</span>`).join('')}
+            </div>
+            <div class="lc-footer">
+              <span>Skills: <strong>${(item.skills_required || '').split(' ').length}</strong></span>
+              <span style="color:var(--accent);font-size:0.72rem">✅ Posted</span>
+            </div>
+          </div>`;
+      }).join('') + `
+        <div class="add-listing-card" onclick="document.getElementById('f-title').focus()">
+          <span style="font-size:1.8rem">+</span>
+          <span style="font-size:0.85rem;font-weight:500">New Listing</span>
+        </div>`;
+
+    } catch (err) {
+      grid.innerHTML = '<div style="color:var(--red);padding:1rem;font-size:0.85rem">❌ Cannot connect to backend. Is Flask running?</div>';
+    }
+  }
+
+  // Load on page open
+  loadListings();
+</script>
+</body>
+</html>

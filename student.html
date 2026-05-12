@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SkillMatch — Student Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Epilogue:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<nav id="top-nav">
+  <div class="logo" onclick="window.location='index.html'">Skill<b>Match</b></div>
+  <div class="nav-links" id="desktop-nav">
+    <a class="nav-pill" href="index.html">Home</a>
+    <a class="nav-pill active" href="student.html">Student</a>
+    <a class="nav-pill" href="company.html">Companies</a>
+    <a class="nav-pill" href="admin.html">Admin</a>
+    <a class="nav-cta" href="student.html">Get Started →</a>
+  </div>
+  <div class="hamburger" id="ham" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div id="mobile-menu">
+  <a class="mobile-nav-item" href="index.html">🏠 Home</a>
+  <a class="mobile-nav-item active" href="student.html">🎓 Student Dashboard</a>
+  <a class="mobile-nav-item" href="company.html">🏢 Company Portal</a>
+  <a class="mobile-nav-item" href="admin.html">⚙️ Admin Panel</a>
+  <a class="mobile-nav-item cta-mobile" href="student.html">Get Started →</a>
+</div>
+
+<div class="page-body">
+  <div class="container">
+
+    <div class="dash-header fade-in">
+      <div>
+        <div class="sub-label">Welcome back</div>
+        <div class="dash-greeting">SkillMatch <em>Student</em> 👋</div>
+      </div>
+      <!-- Hidden real file input -->
+      <input type="file" id="resume-file-input" accept=".pdf" style="display:none" onchange="handleFileUpload(this)"/>
+      <button class="btn btn-green" onclick="document.getElementById('resume-file-input').click()">📄 Upload Resume</button>
+    </div>
+
+    <div class="grid-4" style="margin-bottom:1.5rem">
+      <div class="stat-box fade-in"><div class="n" id="stat-matches">—</div><div class="l">Matches</div></div>
+      <div class="stat-box fade-in-2"><div class="n" style="color:var(--purple)" id="stat-skills">—</div><div class="l">Skills Found</div></div>
+      <div class="stat-box fade-in-3"><div class="n" style="color:var(--red)">3</div><div class="l">Interviews</div></div>
+      <div class="stat-box fade-in-4"><div class="n">8</div><div class="l">Applied</div></div>
+    </div>
+
+    <div class="dash-layout">
+
+      <!-- LEFT -->
+      <div>
+        <div class="card" style="padding:1.4rem;margin-bottom:1.2rem">
+          <div class="panel-head"><span class="panel-title">Resume</span></div>
+          <div class="upload-zone" onclick="document.getElementById('resume-file-input').click()">
+            <div class="upload-icon">📎</div>
+            <div class="upload-text">
+              <strong>Click to upload</strong> or drag &amp; drop<br/>
+              <span style="font-size:0.72rem;color:var(--muted)">PDF · max 5MB</span>
+            </div>
+          </div>
+          <div id="upload-msg" style="display:none;font-size:0.8rem;text-align:center;padding:0.5rem 0;border-radius:8px;margin-top:0.5rem"></div>
+        </div>
+
+        <div class="card" style="padding:1.4rem;margin-bottom:1.2rem">
+          <div class="panel-head">
+            <span class="panel-title">Profile Strength</span>
+            <span id="profile-pct" style="font-size:0.8rem;color:var(--accent);font-weight:600">0%</span>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-bar">
+              <div class="progress-fill" id="profile-bar" style="width:0%"></div>
+            </div>
+          </div>
+          <div style="font-size:0.75rem;color:var(--muted2)" id="profile-tip">Upload your resume to get started</div>
+        </div>
+
+        <div class="card" style="padding:1.4rem">
+          <div class="panel-head">
+            <span class="panel-title">Extracted Skills</span>
+          </div>
+          <div class="skills-cloud" id="skills-cloud">
+            <span style="font-size:0.82rem;color:var(--muted2)">Upload a resume to extract skills</span>
+          </div>
+          <div style="font-size:0.72rem;color:var(--muted)" id="skills-source"></div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div>
+        <div class="card" style="padding:1.4rem">
+          <div class="panel-head">
+            <span class="panel-title">
+              Top Matches
+              <span style="display:inline-block;width:7px;height:7px;background:var(--accent);border-radius:50%;margin-left:4px;vertical-align:middle;animation:pulse 2s infinite"></span>
+            </span>
+            <span style="font-size:0.78rem;color:var(--muted2)">Ranked by cosine similarity</span>
+          </div>
+          <div id="matches-list">
+            <div style="text-align:center;padding:2rem;color:var(--muted2);font-size:0.88rem">
+              Upload your resume to see matched internships
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:1.4rem;margin-top:1.2rem">
+          <div class="panel-head"><span class="panel-title">Or enter skills manually</span></div>
+          <div style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.8rem">
+            <input id="manual-skills" class="form-control" placeholder="python, pandas, sql, flask..." style="flex:1;min-width:200px"/>
+            <button class="btn btn-green" style="white-space:nowrap" onclick="matchManual()">Find Matches →</button>
+          </div>
+          <div style="font-size:0.75rem;color:var(--muted2)">Comma-separated skills — no resume needed</div>
+        </div>
+      </div>
+
+    </div>
+    <div style="height:3rem"></div>
+  </div>
+</div>
+
+<script src="main.js"></script>
+<script>
+  const API = 'http://localhost:5000';
+
+  // ── Score colors
+  function scoreColor(score) {
+    if (score >= 0.7) return 'var(--accent)';
+    if (score >= 0.4) return 'var(--purple)';
+    if (score >= 0.2) return 'var(--amber)';
+    return 'var(--muted2)';
+  }
+
+  // ── Render match cards
+  function renderMatches(matches) {
+    const list = document.getElementById('matches-list');
+    if (!matches || matches.length === 0) {
+      list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted2);font-size:0.88rem">No matches found. Try adding more skills.</div>';
+      return;
+    }
+
+    const icons = ['🏔️','🔮','⚡','🌊','🛸','🎯','💡','🚀'];
+    list.innerHTML = matches.map((m, i) => {
+      const pct   = m.match_pct || (Math.round(m.score * 100) + '%');
+      const width = Math.round(m.score * 100);
+      const color = scoreColor(m.score);
+      return `
+        <div class="match-item">
+          <div class="mi-logo" style="background:rgba(0,240,168,0.08)">${icons[i % icons.length]}</div>
+          <div class="mi-body">
+            <div class="mi-title">${m.title}</div>
+            <div class="mi-sub">TF-IDF cosine similarity match</div>
+            <div class="mi-bar"><div class="mi-fill" style="width:${width}%;background:linear-gradient(90deg,${color},${color}88)"></div></div>
+          </div>
+          <div class="mi-score" style="color:${color}">${pct}</div>
+        </div>`;
+    }).join('');
+
+    document.getElementById('stat-matches').textContent = matches.length;
+  }
+
+  // ── Render skill chips
+  function renderSkills(skills) {
+    const cloud = document.getElementById('skills-cloud');
+    const colors = ['chip-green','chip-green','chip-purple','chip-green','chip-amber'];
+    if (!skills || skills.length === 0) {
+      cloud.innerHTML = '<span style="font-size:0.82rem;color:var(--muted2)">No skills found</span>';
+      return;
+    }
+    cloud.innerHTML = skills.map((s, i) =>
+      `<span class="chip ${colors[i % colors.length]}">${s}</span>`
+    ).join('');
+
+    // Update profile strength
+    const pct = Math.min(100, Math.round((skills.length / 15) * 100));
+    document.getElementById('profile-bar').style.width = pct + '%';
+    document.getElementById('profile-pct').textContent = pct + '%';
+    document.getElementById('stat-skills').textContent = skills.length;
+    document.getElementById('skills-source').textContent = `${skills.length} skills extracted via regex pattern matching`;
+    document.getElementById('profile-tip').textContent = skills.length < 10
+      ? `Add ${10 - skills.length} more skills to boost matches`
+      : 'Great profile! You have a strong skill set.';
+  }
+
+  // ── Handle real PDF upload
+  async function handleFileUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+
+    const msg = document.getElementById('upload-msg');
+    msg.style.display = 'block';
+    msg.style.background = 'rgba(255,184,48,0.1)';
+    msg.style.color = 'var(--amber)';
+    msg.textContent = '⏳ PyPDF2 reading PDF... NLTK cleaning... regex extracting skills...';
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('email', 'student@skillmatch.com');
+
+    try {
+      const res  = await fetch(`${API}/api/upload-resume`, { method: 'POST', body: formData });
+      const data = await res.json();
+
+      if (data.success) {
+        msg.style.background = 'rgba(0,240,168,0.1)';
+        msg.style.color = 'var(--accent)';
+        msg.textContent = `✅ ${file.name} parsed · ${data.skill_count} skills extracted!`;
+
+        renderSkills(data.skills);
+        await loadMatches(data.skills);
+      } else {
+        msg.style.color = 'var(--red)';
+        msg.textContent = '❌ Error: ' + (data.error || 'Upload failed');
+      }
+    } catch (err) {
+      msg.style.color = 'var(--red)';
+      msg.textContent = '❌ Cannot connect to backend. Is Flask running on localhost:5000?';
+    }
+  }
+
+  // ── Match skills to internships
+  async function loadMatches(skills) {
+    try {
+      const res  = await fetch(`${API}/api/match`, {
+        method : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body   : JSON.stringify({ student_skills: skills })
+      });
+      const data = await res.json();
+      renderMatches(data.matches);
+    } catch (err) {
+      document.getElementById('matches-list').innerHTML =
+        '<div style="color:var(--red);padding:1rem;font-size:0.85rem">❌ Could not load matches. Check Flask is running.</div>';
+    }
+  }
+
+  // ── Manual skills input
+  async function matchManual() {
+    const input  = document.getElementById('manual-skills').value.trim();
+    if (!input) return;
+    const skills = input.split(',').map(s => s.trim()).filter(Boolean);
+    renderSkills(skills);
+    await loadMatches(skills);
+  }
+
+  // Enter key on manual input
+  document.getElementById('manual-skills')?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') matchManual();
+  });
+</script>
+</body>
+</html>

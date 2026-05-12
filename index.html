@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SkillMatch — Student Internship Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Epilogue:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<nav id="top-nav">
+  <div class="logo" onclick="window.location='index.html'">Skill<b>Match</b></div>
+  <div class="nav-links" id="desktop-nav">
+    <a class="nav-pill active" href="index.html">Home</a>
+    <a class="nav-pill" href="student.html">Student</a>
+    <a class="nav-pill" href="company.html">Companies</a>
+    <a class="nav-pill" href="admin.html">Admin</a>
+    <a class="nav-cta" href="student.html">Get Started →</a>
+  </div>
+  <div class="hamburger" id="ham" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div id="mobile-menu">
+  <a class="mobile-nav-item active" href="index.html">🏠 Home</a>
+  <a class="mobile-nav-item" href="student.html">🎓 Student Dashboard</a>
+  <a class="mobile-nav-item" href="company.html">🏢 Company Portal</a>
+  <a class="mobile-nav-item" href="admin.html">⚙️ Admin Panel</a>
+  <a class="mobile-nav-item cta-mobile" href="student.html">Get Started →</a>
+</div>
+
+<section id="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="hero-badge">AI-Powered Matching · Live</div>
+  <h1>Your skills deserve<br/>the <em>right</em> internship</h1>
+  <p class="hero-sub">Upload your resume. PyPDF2 + NLTK extract your skills. scikit-learn + pandas ranks every internship by real match score — in seconds.</p>
+  <div class="hero-btns">
+    <a class="btn btn-green" href="student.html">Get Matched Free →</a>
+    <a class="btn btn-outline" href="company.html">Post Internship</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hs-item"><div class="hs-n">12K+</div><div class="hs-l">Students Matched</div></div>
+    <div class="hs-item"><div class="hs-n">840</div><div class="hs-l">Active Internships</div></div>
+    <div class="hs-item"><div class="hs-n">94%</div><div class="hs-l">Match Accuracy</div></div>
+    <div class="hs-item"><div class="hs-n">320</div><div class="hs-l">Partner Companies</div></div>
+  </div>
+</section>
+
+<section class="section" style="border-top:1px solid var(--border)">
+  <div class="container">
+    <p class="label-tag">Features</p>
+    <h2 class="h2">The full AI pipeline,<br/>built for students</h2>
+    <p class="subtext">From PDF parsing to cosine similarity — every layer of the stack working for you.</p>
+    <div class="features-grid">
+      <div class="feat-card"><div class="feat-icon" style="background:var(--accent-dim)">📄</div><div class="feat-title">Smart Resume Parsing</div><div class="feat-desc">PyPDF2 reads your PDF. NLTK cleans the text. Regex pattern matching extracts skills, tools, and experience automatically.</div></div>
+      <div class="feat-card"><div class="feat-icon" style="background:var(--purple-dim)">🤖</div><div class="feat-title">TF-IDF Matching</div><div class="feat-desc">scikit-learn vectorizes your skill profile and all internship listings. Cosine similarity returns a precise fit score for each.</div></div>
+      <div class="feat-card"><div class="feat-icon" style="background:var(--red-dim)">📊</div><div class="feat-title">Pandas + NumPy Analytics</div><div class="feat-desc">Match scores injected into a pandas DataFrame — sorted, filtered, and returned as clean JSON via your Flask API.</div></div>
+      <div class="feat-card"><div class="feat-icon" style="background:var(--amber-dim)">🏢</div><div class="feat-title">Company Portal</div><div class="feat-desc">Companies post internships with required skill sets and instantly see AI-ranked student candidates sorted by match score.</div></div>
+      <div class="feat-card"><div class="feat-icon" style="background:var(--accent-dim)">⚡</div><div class="feat-title">Skill Gap Analysis</div><div class="feat-desc">Know exactly which skills separate you from a 95% match. Get targeted learning recommendations per internship.</div></div>
+      <div class="feat-card"><div class="feat-icon" style="background:var(--purple-dim)">🛡️</div><div class="feat-title">Admin Panel</div><div class="feat-desc">Full platform oversight — manage users, companies, flag content, and view real-time analytics from one control center.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <p class="label-tag">Process</p>
+    <h2 class="h2">How it works</h2>
+    <div class="steps-row">
+      <div class="step-item"><div class="step-n">1</div><h4>Upload Resume</h4><p>Drop your PDF. PyPDF2 + NLTK extract and clean your skills list in under 2 seconds.</p></div>
+      <div class="step-item"><div class="step-n">2</div><h4>Skills Extracted</h4><p>Regex pattern matching identifies 30+ technical skills from your resume text automatically.</p></div>
+      <div class="step-item"><div class="step-n">3</div><h4>ML Matching</h4><p>TF-IDF vectors + numpy cosine similarity scores your profile against every internship listing.</p></div>
+      <div class="step-item"><div class="step-n">4</div><h4>View Your Matches</h4><p>pandas sorts your matches by % fit score. Browse, apply, and track — all in one place.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta-strip">
+      <h2>Ready to find your internship?</h2>
+      <p>Join 12,000+ students who already got matched. Takes 30 seconds.</p>
+      <div class="cta-btns">
+        <a class="btn btn-green" href="student.html">I'm a Student →</a>
+        <a class="btn btn-purple" href="company.html">I'm a Company →</a>
+        <a class="btn btn-outline" href="admin.html">Admin Login</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">Skill<b>Match</b></div>
+  <span>Flask · PyPDF2 · NLTK · scikit-learn · pandas · numpy</span>
+  <span>© 2024 SkillMatch</span>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
