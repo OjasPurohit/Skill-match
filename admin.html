@@ -296,8 +296,9 @@
   </div><!-- /admin-main -->
 </div><!-- /admin-grid -->
 
-<script src="js/main.js"></script>
+<script src="main.js"></script>
 <script>
+  const API = 'https://skillmatch-api-fm58.onrender.com';
   function showAdminView(name) {
     document.querySelectorAll('.admin-view').forEach(v => v.classList.remove('active'));
     document.querySelectorAll('.s-item').forEach(s => s.classList.remove('active'));
