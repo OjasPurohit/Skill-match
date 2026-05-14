@@ -1,6 +1,3 @@
-// ─── CONFIG ───
-const API = 'http://localhost:5000';  // change to your Render backend URL when deployed
-
 // ─── MOBILE MENU ───
 function toggleMenu() {
   document.getElementById('mobile-menu').classList.toggle('open');
